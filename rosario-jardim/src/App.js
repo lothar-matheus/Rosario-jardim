@@ -16,6 +16,13 @@ function App() {
     });
   }, []);
 
+  const sendWhatsAppMessage = (item, price) => {
+    const phoneNumber = "5585997448626";
+    const message = `Olá, gostaria de comprar o ${item} por R$${price}.`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -25,17 +32,20 @@ function App() {
         </div>
       </header>
       <div className='catalogo'>
-  <h3>Veja o nosso catálogo</h3>
-  {catalogo ? (
-    <ul>
-      {Object.entries(catalogo).map(([key, value]) => (
-        <li key={key}>{key}: {value}</li>
-      ))}
-    </ul>
-  ) : (
-    <p>Carregando catálogo...</p>
-  )}
-</div>
+        <h3>Veja o nosso catálogo</h3>
+        {catalogo ? (
+          <ul>
+            {Object.entries(catalogo).map(([key, value]) => (
+              <li key={key}>
+                {key}: R${value}{" "}
+                <button onClick={() => sendWhatsAppMessage(key, value)}>Comprar</button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Carregando catálogo...</p>
+        )}
+      </div>
     </div>
   );
 }
