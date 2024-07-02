@@ -3,6 +3,7 @@ import './App.css';
 import logo from './logo.png';
 import { database } from './dataBase';
 import { ref, onValue } from "firebase/database";
+import reportWebVitals from './reportWebVitals';
 
 function App() {
   const [catalogo, setCatalogo] = useState({});
