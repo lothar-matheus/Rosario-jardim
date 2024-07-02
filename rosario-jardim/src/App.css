@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial, sans-serif';
+  background-color: #e0f8d7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding-top: 80px; /* Ajuste conforme a altura do header */
+}
+
+.App-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: transparent;
+  position: fixed; /* Fixado no topo */
+  top: 0;
+  left: 0;
+}
+
+.container {
+  text-align: center;
+  width: 100%; /* Garantir que o container ocupe toda a largura disponível */
+}
+
+.container h2 {
+  padding-bottom: 10px;
+}
+
+.catalogo {
+  color: brown;
+  margin-top: 150px; /* Espaço para garantir que fique abaixo do header */
+}
+.catalogo h2{
+  margin-right: 285px;
+}
+.catalogo ul{
+  margin-right: 285px;
+
+}
+
+.logo {
+  width: 30%;
+  height: auto;
+  margin: 0 auto 10px; /* Menor margem para melhor ajuste em telas menores */
+}
+
+.title {
+  font-size: 1.8em; /* Tamanho ajustado para telas menores */
+  color: #36522e;
+  margin-bottom: 0.3em;
+}
+
+.subtitle {
+  font-size: 1.3em; /* Tamanho ajustado para telas menores */
+  color: #36522e;
+  margin-top: 0.3em;
+}
