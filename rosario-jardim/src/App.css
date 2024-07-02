@@ -49,10 +49,12 @@ body {
 .catalogo ul {
   list-style-type: none;
   padding-left: 0;
+  color: black;
 }
 
 .catalogo li {
   padding: 5px 0;
+  color: black;
 }
 
 .logo {

@@ -11,6 +11,7 @@ function App() {
     const catalogoRef = ref(database, 'catalogo');
     onValue(catalogoRef, (snapshot) => {
       const data = snapshot.val();
+      console.log('Dados do catálogo:', data);
       setCatalogo(data);
     });
   }, []);
@@ -24,13 +25,17 @@ function App() {
         </div>
       </header>
       <div className='catalogo'>
-        <h3>Veja o nosso catálogo</h3>
-        <ul>
-          {Object.keys(catalogo).map((key) => (
-            <li key={key}>{key}: {catalogo[key]}</li>
-          ))}
-        </ul>
-      </div>
+  <h3>Veja o nosso catálogo</h3>
+  {catalogo ? (
+    <ul>
+      {Object.entries(catalogo).map(([key, value]) => (
+        <li key={key}>{key}: {value}</li>
+      ))}
+    </ul>
+  ) : (
+    <p>Carregando catálogo...</p>
+  )}
+</div>
     </div>
   );
 }
