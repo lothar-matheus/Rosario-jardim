@@ -35,15 +35,24 @@ body {
 }
 
 .catalogo {
+  width: 100%;
+  text-align: left; /* Alinhar o texto à esquerda */
   color: brown;
-  margin-top: 150px; /* Espaço para garantir que fique abaixo do header */
+  margin-top: 80px; /* Espaço para garantir que fique abaixo do header */
+  padding: 10px;
 }
-.catalogo h2{
-  margin-right: 285px;
-}
-.catalogo ul{
-  margin-right: 285px;
 
+.catalogo h3 {
+  margin-left: 10px; /* Adicionar margem para distanciar do lado esquerdo da tela */
+}
+
+.catalogo ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.catalogo li {
+  padding: 5px 0;
 }
 
 .logo {
