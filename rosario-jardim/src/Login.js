@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { auth } from './dataBase';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const auth = getAuth();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError('As senhas não correspondem.');
-      return;
-    }
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Usuário logado com sucesso
         console.log('Usuário logado:', userCredential.user);
+        navigate('/home');
       })
       .catch((error) => {
-        // Tratar erros de autenticação
         console.error('Erro ao fazer login:', error);
         setError('Falha no login. Verifique suas credenciais e tente novamente.');
       });
@@ -43,13 +39,6 @@ const Login = () => {
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirme a Senha"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
         <button type="submit">Login</button>
