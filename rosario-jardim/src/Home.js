@@ -1,10 +1,11 @@
-// Home.js
 import React, { useState, useEffect } from 'react';
 import { ref, push, update, remove, get } from 'firebase/database';
-import { database } from './dataBase';
+import { database, storage } from './dataBase'; // Certifique-se de configurar o storage no arquivo 'dataBase'
+import { getAuth } from 'firebase/auth';
+import { uploadBytes, getDownloadURL, ref as storageRef } from 'firebase/storage';
 
-const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage, user }) => {
-  const [newItem, setNewItem] = useState({ name: '', price: '' });
+const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
+  const [newItem, setNewItem] = useState({ name: '', price: '', image: null });
   const [editItem, setEditItem] = useState({ id: '', name: '', price: '' });
   const [localCatalogo, setLocalCatalogo] = useState(catalogo);
 
@@ -12,22 +13,27 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage, user }) => {
     setLocalCatalogo(catalogo);
   }, [catalogo]);
 
-  // Verificação de autorização
-  const isAuthorized = user && user.email === 'rosario.jardimLN@gmail.com';
-
-  useEffect(() => {
-    console.log("Is authorized:", isAuthorized);
-  }, [isAuthorized]);
+  const handleImageUpload = async () => {
+    if (!newItem.image) return null;
+    const imageRef = storageRef(storage, `plants/${newItem.image.name}`);
+    const snapshot = await uploadBytes(imageRef, newItem.image);
+    return await getDownloadURL(snapshot.ref);
+  };
 
   const handleAdd = async () => {
-    if (!isAuthorized) {
-      alert('Você não tem permissão para adicionar itens.');
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert('Você não está logado.');
       return;
     }
+
     try {
+      const imageUrl = await handleImageUpload(); // Faz o upload da imagem e obtém a URL
       const catalogoRef = ref(database, 'catalogo');
-      await push(catalogoRef, { [newItem.name]: newItem.price });
-      setNewItem({ name: '', price: '' });
+      await push(catalogoRef, { name: newItem.name, price: newItem.price, imageUrl });
+      setNewItem({ name: '', price: '', image: null });
       const snapshot = await get(catalogoRef);
       setLocalCatalogo(snapshot.val());
     } catch (error) {
@@ -36,38 +42,44 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage, user }) => {
     }
   };
 
-  const handleRemove = async (key) => {
-    if (!isAuthorized) {
-      alert('Você não tem permissão para remover itens.');
+  const handleEdit = async (key, name, price) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert('Você não está logado.');
       return;
     }
+
     try {
-      const itemRef = ref(database, `catalogo/${key}`);
-      await remove(itemRef);
-      const catalogoRef = ref(database, 'catalogo');
-      const snapshot = await get(catalogoRef);
+      const catalogoRef = ref(database, `catalogo/${key}`);
+      await update(catalogoRef, { name, price });
+      const snapshot = await get(ref(database, 'catalogo'));
+      setLocalCatalogo(snapshot.val());
+      setEditItem({ id: '', name: '', price: '' });
+    } catch (error) {
+      console.error('Erro ao editar item:', error);
+      alert('Erro ao editar item. Tente novamente.');
+    }
+  };
+
+  const handleRemove = async (key) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      alert('Você não está logado.');
+      return;
+    }
+
+    try {
+      const catalogoRef = ref(database, `catalogo/${key}`);
+      await remove(catalogoRef);
+      const snapshot = await get(ref(database, 'catalogo'));
       setLocalCatalogo(snapshot.val());
     } catch (error) {
       console.error('Erro ao remover item:', error);
       alert('Erro ao remover item. Tente novamente.');
-    }
-  };
-
-  const handleEdit = async (key, newName, newPrice) => {
-    if (!isAuthorized) {
-      alert('Você não tem permissão para editar itens.');
-      return;
-    }
-    try {
-      const itemRef = ref(database, `catalogo/${key}`);
-      await update(itemRef, { [newName]: newPrice });
-      setEditItem({ id: '', name: '', price: '' });
-      const catalogoRef = ref(database, 'catalogo');
-      const snapshot = await get(catalogoRef);
-      setLocalCatalogo(snapshot.val());
-    } catch (error) {
-      console.error('Erro ao editar item:', error);
-      alert('Erro ao editar item. Tente novamente.');
     }
   };
 
@@ -86,6 +98,10 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage, user }) => {
           placeholder="Preço"
           value={newItem.price}
           onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
+        />
+        <input
+          type="file"
+          onChange={(e) => setNewItem({ ...newItem, image: e.target.files[0] })}
         />
         <button onClick={handleAdd}>Adicionar</button>
         {localCatalogo ? (
@@ -108,15 +124,12 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage, user }) => {
                   </>
                 ) : (
                   <>
-                    {key}: R${value}{" "}
-                    <button onClick={() => sendWhatsAppMessage(key, value)}>Comprar</button>
-                    <button onClick={() => adicionarAoCarrinho(key, value)}>Carrinho</button>
-                    {isAuthorized && (
-                      <>
-                        <button onClick={() => handleRemove(key)}>Remover</button>
-                        <button onClick={() => setEditItem({ id: key, name: key, price: value })}>Editar</button>
-                      </>
-                    )}
+                    {value.name}: R$ {value.price}{" "}
+                    {value.imageUrl && <img src={value.imageUrl} alt={value.name} style={{ width: '50px', height: '50px' }} />}
+                    <button onClick={() => sendWhatsAppMessage(value.name, value.price)}>Comprar</button>
+                    <button onClick={() => adicionarAoCarrinho(value.name, value.price)}>Carrinho</button>
+                    <button onClick={() => handleRemove(key)}>Remover</button>
+                    <button onClick={() => setEditItem({ id: key, name: value.name, price: value.price })}>Editar</button>
                   </>
                 )}
               </li>

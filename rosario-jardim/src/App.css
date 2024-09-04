@@ -35,19 +35,19 @@ body {
 }
 
 .carrinhoLogo {
-  width: 30px;
+  width: 40px;
   height: auto;
   position: absolute; /* Tornar a posição absoluta */
-  top: 20px; /* Ajustar conforme necessário */
+  top: 17px; /* Ajustar conforme necessário */
   right: 20px; /* Ajustar conforme necessário */
 }
 
 .adminLogo {
-  width: 50px; /* Tamanho ajustado para dispositivos móveis */
-  height: auto;
+  width: 50%; /* Tamanho ajustado para dispositivos móveis */
+  height: 60%;
   position: absolute; /* Tornar a posição absoluta */
-  top: 20px; /* Ajustar conforme necessário */
-  left: 20px; /* Ajustar conforme necessário */
+  top: -27px; /* Ajustar conforme necessário */
+  left: -50px; /* Ajustar conforme necessário */
 }
 
 .catalogo {

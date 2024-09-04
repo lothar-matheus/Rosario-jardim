@@ -1,4 +1,3 @@
-// App.js
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
@@ -20,7 +19,7 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("Current user:", currentUser);
+      console.log("Usuário atual:", currentUser);
     });
 
     return () => unsubscribe();
@@ -81,24 +80,46 @@ function App() {
         </div>
       </header>
       <Routes>
-        <Route path="/" element={<div className="catalogo">
-          <h3>Veja o nosso catálogo</h3>
-          {catalogo ? (
-            <ul>
-              {Object.entries(catalogo).map(([key, value]) => (
-                <li key={key}>
-                  {key}: R${value}{" "}
-                  <button onClick={() => sendWhatsAppMessage(key, value)}>Comprar</button>
-                  <button onClick={() => adicionarAoCarrinho(key, value)}>Carrinho</button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Carregando catálogo...</p>
-          )}
-        </div>} />
+        <Route
+          path="/"
+          element={
+            <div className="catalogo">
+              <h3>Veja o nosso catálogo</h3>
+              {catalogo ? (
+                <ul>
+                  {Object.entries(catalogo).map(([key, value]) => (
+                    <li key={key}>
+                      {value.name}: R${value.price}{" "}
+                      {value.imageUrl && (
+                        <img
+                          src={value.imageUrl}
+                          alt={value.name}
+                          style={{ width: '50px', height: '50px' }}
+                        />
+                      )}
+                      <button onClick={() => sendWhatsAppMessage(value.name, value.price)}>Comprar</button>
+                      <button onClick={() => adicionarAoCarrinho(value.name, value.price)}>Carrinho</button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Carregando catálogo...</p>
+              )}
+            </div>
+          }
+        />
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home catalogo={catalogo} adicionarAoCarrinho={adicionarAoCarrinho} sendWhatsAppMessage={sendWhatsAppMessage} user={user} />} />
+        <Route
+          path="/home"
+          element={
+            <Home
+              catalogo={catalogo}
+              adicionarAoCarrinho={adicionarAoCarrinho}
+              sendWhatsAppMessage={sendWhatsAppMessage}
+              user={user}
+            />
+          }
+        />
       </Routes>
     </div>
   );
