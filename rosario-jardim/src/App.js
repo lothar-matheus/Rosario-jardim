@@ -74,7 +74,11 @@ function App() {
             className="carrinhoLogo"
             onClick={sendWhatsAppMessagePush}
             style={{ cursor: 'pointer' }}
-       
+
+
+            /*<button>Plantas</buttons>
+              <button>Artesanatos</buttons>
+            */
             
           />
           <div className='carrinhoLogo'>
