@@ -55,6 +55,11 @@ function App() {
     )}`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
+
+    //zarar o carrinho quando o usuário já estiver no whatszap do cliente
+
+    setCarrinho([]);
+
   };
 
   return (
@@ -69,7 +74,12 @@ function App() {
             className="carrinhoLogo"
             onClick={sendWhatsAppMessagePush}
             style={{ cursor: 'pointer' }}
+       
+            
           />
+          <div className='carrinhoLogo'>
+            {carrinho.length >0 && <span className='cart-count'>{carrinho.length}</span>}
+          </div>
           <img
             src={logoAdmin}
             alt="Admin Logo"
@@ -86,22 +96,25 @@ function App() {
             <div className="catalogo">
               <h3>Veja o nosso catálogo</h3>
               {catalogo ? (
-                <ul>
-                  {Object.entries(catalogo).map(([key, value]) => (
-                    <li key={key}>
-                      {value.name}: R${value.price}{" "}
-                      {value.imageUrl && (
-                        <img
-                          src={value.imageUrl}
-                          alt={value.name}
-                          style={{ width: '50px', height: '50px' }}
-                        />
-                      )}
-                      <button onClick={() => sendWhatsAppMessage(value.name, value.price)}>Comprar</button>
-                      <button onClick={() => adicionarAoCarrinho(value.name, value.price)}>Carrinho</button>
-                    </li>
-                  ))}
-                </ul>
+               <ul>
+               {Object.entries(catalogo).map(([key, value]) => (
+                 <li key={key} className="catalogo-item">
+                   {value.imageUrl && (
+                     <img src={value.imageUrl} alt={value.name} />
+                   )}
+                   <div className="item-info">
+                     <h4>{value.name}</h4>
+                     <p>R$ {value.price}</p>
+                     <div className="item-buttons">
+                       <button onClick={() => sendWhatsAppMessage(value.name, value.price)}>Comprar</button>
+                       <button onClick={() => adicionarAoCarrinho(value.name, value.price)}>Carrinho</button>
+                       
+                     </div>
+                   </div>
+                 </li>
+               ))}
+             </ul>
+             
               ) : (
                 <p>Carregando catálogo...</p>
               )}

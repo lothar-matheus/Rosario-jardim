@@ -11,7 +11,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0;
-  padding-top: 80px; /* Ajuste conforme a altura do header */
+  padding-top: 80px;
 }
 
 .App-header {
@@ -20,14 +20,14 @@ body {
   justify-content: center;
   padding: 20px 0;
   background-color: transparent;
-  position: fixed; /* Fixado no topo */
+  position: fixed;
   top: 0;
   left: 0;
 }
 
 .container {
   text-align: center;
-  width: 100%; /* Garantir que o container ocupe toda a largura disponível */
+  width: 100%;
 }
 
 .container h2 {
@@ -37,29 +37,28 @@ body {
 .carrinhoLogo {
   width: 40px;
   height: auto;
-  position: absolute; /* Tornar a posição absoluta */
-  top: 17px; /* Ajustar conforme necessário */
-  right: 20px; /* Ajustar conforme necessário */
+  position: absolute;
+  top: 17px;
+  right: 20px;
 }
 
 .adminLogo {
-  width: 50%; /* Tamanho ajustado para dispositivos móveis */
+  width: 50%;
   height: 60%;
-  position: absolute; /* Tornar a posição absoluta */
-  top: -27px; /* Ajustar conforme necessário */
-  left: -50px; /* Ajustar conforme necessário */
+  position: absolute;
+  top: -27px;
+  left: -50px;
 }
 
 .catalogo {
   width: 100%;
-  text-align: left; /* Alinhar o texto à esquerda */
   color: brown;
-  margin-top: 120px; /* Espaço para garantir que fique abaixo do header */
-  padding: 0 20px; /* Margem para o conteúdo da catálogo */
+  margin-top: 120px;
+  padding: 0 20px;
 }
 
 .catalogo h3 {
-  margin-left: 10px; /* Adicionar margem para distanciar do lado esquerdo da tela */
+  margin-left: 10px;
 }
 
 .catalogo ul {
@@ -69,20 +68,49 @@ body {
 }
 
 .catalogo li {
-  padding: 5px 0;
   color: black;
 }
 
+/* Novos estilos para os itens do catálogo */
+.catalogo-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.catalogo-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-right: 15px;
+}
+
+.catalogo-item .item-info {
+  flex: 1;
+}
+
+.catalogo-item .item-info h4 {
+  margin: 0 0 5px 0;
+}
+
+.catalogo-item .item-info p {
+  margin: 0 0 10px 0;
+}
+
+.catalogo-item .item-buttons button {
+  margin-right: 10px;
+}
+
 button {
-  background-color: #4CAF50; /* Verde */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 8px 15px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
   cursor: pointer;
   border-radius: 3px;
 }
@@ -94,29 +122,29 @@ button:hover {
 .logo {
   width: 30%;
   height: auto;
-  margin: 0 auto 10px; /* Menor margem para melhor ajuste em telas menores */
+  margin: 0 auto 10px;
 }
 
 .title {
-  font-size: 1.8em; /* Tamanho ajustado para telas menores */
+  font-size: 1.8em;
   color: #36522e;
   margin-bottom: 0.3em;
 }
 
 .subtitle {
-  font-size: 1.3em; /* Tamanho ajustado para telas menores */
+  font-size: 1.3em;
   color: #36522e;
   margin-top: 0.3em;
 }
 
 .loginforms {
-  width: 90%; /* Ajuste a largura para dispositivos móveis */
-  max-width: 400px; /* Limite a largura máxima */
-  margin: 80px auto; /* Centralize o formulário e ajuste a margem superior */
+  width: 90%;
+  max-width: 400px;
+  margin: 80px auto;
   padding: 20px;
-  background-color: white; /* Fundo branco para contraste */
-  border-radius: 10px; /* Bordas arredondadas */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin-top: 120px;
 }
@@ -129,7 +157,6 @@ button:hover {
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 .loginforms button {
@@ -148,7 +175,34 @@ button:hover {
   background-color: #45a049;
 }
 
-
-.divHome{
+.divHome {
   margin-top: 120px;
+}
+
+.cart-count {
+  background-color: red; /* Cor do fundo do contador */
+  color: white; /* Cor do número */
+  padding: 2px 6px; /* Espaçamento interno */
+  border-radius: 50%; /* Deixa em formato circular */
+  margin-left: 8px; /* Espaço entre o texto "Carrinho" e o número */
+  font-size: 12px; /* Tamanho da fonte do número */
+  font-weight: bold;
+}
+
+
+.carrinhoContainer {
+  position: relative; /* Importante para permitir o posicionamento absoluto do contador */
+}
+
+.cart-count {
+  position: absolute;
+  bottom: -10px; /* Ajuste para ficar embaixo do carrinho */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Garante centralização exata */
+  background-color: red;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
 }
