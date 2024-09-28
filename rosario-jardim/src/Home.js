@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ref, push, update, remove, get } from 'firebase/database';
-import { database, storage } from './dataBase'; // Certifique-se de configurar o storage no arquivo 'dataBase'
+import { database, storage } from './dataBase';
 import { getAuth } from 'firebase/auth';
 import { uploadBytes, getDownloadURL, ref as storageRef } from 'firebase/storage';
 
@@ -15,9 +15,15 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
 
   const handleImageUpload = async () => {
     if (!newItem.image) return null;
-    const imageRef = storageRef(storage, `plants/${newItem.image.name}`);
-    const snapshot = await uploadBytes(imageRef, newItem.image);
-    return await getDownloadURL(snapshot.ref);
+
+    try {
+      const imageRef = storageRef(storage, `plants/${newItem.image.name}`);
+      const snapshot = await uploadBytes(imageRef, newItem.image);
+      return await getDownloadURL(snapshot.ref);
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      return null;
+    }
   };
 
   const handleAdd = async () => {
@@ -29,11 +35,17 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
       return;
     }
 
+    if (!newItem.name || !newItem.price) {
+      alert('Nome e preço são obrigatórios.');
+      return;
+    }
+
     try {
-      const imageUrl = await handleImageUpload(); // Faz o upload da imagem e obtém a URL
+      const imageUrl = await handleImageUpload();
       const catalogoRef = ref(database, 'catalogo');
       await push(catalogoRef, { name: newItem.name, price: newItem.price, imageUrl });
       setNewItem({ name: '', price: '', image: null });
+
       const snapshot = await get(catalogoRef);
       setLocalCatalogo(snapshot.val());
     } catch (error) {
@@ -51,9 +63,15 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
       return;
     }
 
+    if (!name || !price) {
+      alert('Nome e preço são obrigatórios.');
+      return;
+    }
+
     try {
       const catalogoRef = ref(database, `catalogo/${key}`);
       await update(catalogoRef, { name, price });
+
       const snapshot = await get(ref(database, 'catalogo'));
       setLocalCatalogo(snapshot.val());
       setEditItem({ id: '', name: '', price: '' });
@@ -75,6 +93,7 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
     try {
       const catalogoRef = ref(database, `catalogo/${key}`);
       await remove(catalogoRef);
+
       const snapshot = await get(ref(database, 'catalogo'));
       setLocalCatalogo(snapshot.val());
     } catch (error) {
@@ -84,53 +103,62 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
   };
 
   return (
-    <div className='divHome'>
-      <div className='catalogo'>
-        <h3>Catálogo atual</h3>
+    <div className='home-container'>
+      <div className='catalogo-header'>
+        <h1>Veja o Catálogo atual</h1>
+      </div>
+
+      {/* Formulário de adição de item */}
+      <div className='add-item-form'>
         <input
-          type="text"
-          placeholder="Nome da planta"
+          type='text'
+          placeholder='Nome da planta'
           value={newItem.name}
           onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
         />
         <input
-          type="text"
-          placeholder="Preço"
+          type='text'
+          placeholder='Preço'
           value={newItem.price}
           onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
         />
         <input
-          type="file"
+          type='file'
           onChange={(e) => setNewItem({ ...newItem, image: e.target.files[0] })}
         />
-        <button onClick={handleAdd}>Adicionar</button>
+        <button className='buttonAdd' onClick={handleAdd}>Adicionar</button>
+      </div>
+
+      {/* Exibição do catálogo */}
+      <div className='catalogo-list'>
         {localCatalogo ? (
           <ul>
             {Object.entries(localCatalogo).map(([key, value]) => (
-              <li key={key}>
+              <li key={key} className='catalogo-item'>
                 {editItem.id === key ? (
-                  <>
+                  <div className='edit-item'>
                     <input
-                      type="text"
+                      type='text'
                       value={editItem.name}
                       onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
                     />
                     <input
-                      type="text"
+                      type='text'
                       value={editItem.price}
                       onChange={(e) => setEditItem({ ...editItem, price: e.target.value })}
                     />
                     <button onClick={() => handleEdit(key, editItem.name, editItem.price)}>Salvar</button>
-                  </>
+                  </div>
                 ) : (
-                  <>
-                    {value.name}: R$ {value.price}{" "}
-                    {value.imageUrl && <img src={value.imageUrl} alt={value.name} style={{ width: '50px', height: '50px' }} />}
-                    <button onClick={() => sendWhatsAppMessage(value.name, value.price)}>Comprar</button>
-                    <button onClick={() => adicionarAoCarrinho(value.name, value.price)}>Carrinho</button>
-                    <button onClick={() => handleRemove(key)}>Remover</button>
-                    <button onClick={() => setEditItem({ id: key, name: value.name, price: value.price })}>Editar</button>
-                  </>
+                  <div className='item-display'>
+                    {value.name}: R$ {value.price}{' '}
+                    {value.imageUrl && <img src={value.imageUrl} alt={value.name} className='item-image' />}
+                    <div className='item-actions'>
+                      
+                      <button onClick={() => handleRemove(key)}>Remover</button>
+                      <button onClick={() => setEditItem({ id: key, name: value.name, price: value.price })}>Editar</button>
+                    </div>
+                  </div>
                 )}
               </li>
             ))}

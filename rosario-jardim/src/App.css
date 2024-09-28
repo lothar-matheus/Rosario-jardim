@@ -35,72 +35,89 @@ body {
 }
 
 .carrinhoLogo {
-  width: 40px;
+  width: 35px;
   height: auto;
   position: absolute;
-  top: 17px;
-  right: 20px;
+  top: 10px;
+  right: -1px;
 }
 
 .adminLogo {
-  width: 50%;
-  height: 60%;
+  width: 38%;
+  height: auto;
   position: absolute;
-  top: -27px;
-  left: -50px;
+  top: -20px;
+  left: -63px;
 }
 
 .catalogo {
-  width: 100%;
-  color: brown;
-  margin-top: 120px;
-  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 15px;
+  margin-top: 130px;
+  font-size: 30px;
 }
 
-.catalogo h3 {
-  margin-left: 10px;
-}
-
-.catalogo ul {
-  list-style-type: none;
-  padding-left: 0;
-  color: black;
-}
-
-.catalogo li {
-  color: black;
-}
-
-/* Novos estilos para os itens do catálogo */
 .catalogo-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 90%;
+  margin-left: 20px;
+}
+
+.catalogo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .catalogo-item img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #ddd;
   margin-right: 15px;
+  border-radius: 8px;
 }
 
-.catalogo-item .item-info {
-  flex: 1;
+.catalogo-item-content {
+  flex-grow: 1;
 }
 
-.catalogo-item .item-info h4 {
-  margin: 0 0 5px 0;
+.catalogo-item h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0 0 8px;
 }
 
-.catalogo-item .item-info p {
-  margin: 0 0 10px 0;
+.catalogo-item p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0 0 12px;
 }
 
-.catalogo-item .item-buttons button {
-  margin-right: 10px;
+.catalogo-item-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.catalogo-item button {
+  background-color: #76c893;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.catalogo-item button:hover {
+  background-color: #68b384;
 }
 
 button {
@@ -109,7 +126,6 @@ button {
   color: white;
   padding: 8px 15px;
   text-align: center;
-  text-decoration: none;
   font-size: 16px;
   cursor: pointer;
   border-radius: 3px;
@@ -120,9 +136,16 @@ button:hover {
 }
 
 .logo {
-  width: 30%;
+  width: 50%;
   height: auto;
-  margin: 0 auto 10px;
+  align-items: center;
+  justify-items: center;
+  margin-left: 25%;
+  margin-top: -170px;
+  
+
+  
+  
 }
 
 .title {
@@ -136,7 +159,10 @@ button:hover {
   color: #36522e;
   margin-top: 0.3em;
 }
+.h3cata{
+  margin-left: 27px;
 
+}
 .loginforms {
   width: 90%;
   max-width: 400px;
@@ -179,30 +205,57 @@ button:hover {
   margin-top: 120px;
 }
 
-.cart-count {
-  background-color: red; /* Cor do fundo do contador */
-  color: white; /* Cor do número */
-  padding: 2px 6px; /* Espaçamento interno */
-  border-radius: 50%; /* Deixa em formato circular */
-  margin-left: 8px; /* Espaço entre o texto "Carrinho" e o número */
-  font-size: 12px; /* Tamanho da fonte do número */
-  font-weight: bold;
-}
-
-
 .carrinhoContainer {
-  position: relative; /* Importante para permitir o posicionamento absoluto do contador */
+  position: relative;
+  display: inline-block;
 }
 
 .cart-count {
   position: absolute;
-  bottom: -10px; /* Ajuste para ficar embaixo do carrinho */
-  left: 50%; /* Centraliza horizontalmente */
-  transform: translateX(-50%); /* Garante centralização exata */
+  top: 27px;
+  right: 1px;
   background-color: red;
   color: white;
-  padding: 2px 6px;
   border-radius: 50%;
+  padding: 2px 6px;
   font-size: 12px;
   font-weight: bold;
+  min-width: 18px;
+  text-align: center;
+}
+
+.home-container {
+  margin-top: 0px;
+}
+
+.add-item-form {
+  margin-top: 10px;
+  margin-left: 40px;
+  width: 84%;
+}
+.catalogo-header{
+  
+  text-align: center;
+  
+  
+}
+
+.buttonAdd {
+  width: 50%;
+  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.catalogo-list {
+  margin-top: 50px;
+  padding: 5px;
+  font-size: 120%;
+  font-weight: bold;
+  width: 99%;
 }
