@@ -134,7 +134,7 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
         {localCatalogo ? (
           <ul>
             {Object.entries(localCatalogo).map(([key, value]) => (
-              <li key={key} className='catalogo-item'>
+              <li key={key} className='catalogo-item-home'>
                 {editItem.id === key ? (
                   <div className='edit-item'>
                     <input
@@ -151,6 +151,7 @@ const Home = ({ catalogo, adicionarAoCarrinho, sendWhatsAppMessage }) => {
                   </div>
                 ) : (
                   <div className='item-display'>
+                    
                     {value.name}: R$ {value.price}{' '}
                     {value.imageUrl && <img src={value.imageUrl} alt={value.name} className='item-image' />}
                     <div className='item-actions'>
