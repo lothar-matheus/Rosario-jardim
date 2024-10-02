@@ -36,7 +36,7 @@ function App() {
   }, []);
 
   const sendWhatsAppMessage = (item, price) => {
-    const phoneNumber = '5585997448626';
+    const phoneNumber = 'Você pode colocar o número aqui ';
     const message = `Olá, gostaria de comprar o ${item} por R$${price}.`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -47,7 +47,7 @@ function App() {
   };
 
   const sendWhatsAppMessagePush = () => {
-    const phoneNumber = '5585997448626';
+    const phoneNumber = 'Você pode colocar o número aqui';
     const message = `Olá, gostaria de comprar os seguintes itens:\n\n${carrinho
       .map((produto) => `${produto.item}: R$${produto.price}`)
       .join('\n')}\n\nTotal: R$${carrinho.reduce(

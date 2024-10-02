@@ -345,7 +345,7 @@ button:hover {
   width: 99%;
 }
 
-/* ADICIONANDO AS ALTERAÇÕES */
+/* ADICIONANDO AS ALTERAÇÕES DO HEADER*/
 
 .header-home {
   position: fixed;
@@ -381,7 +381,7 @@ button:hover {
 .catalogo-item-home {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Alinha verticalmente os elementos */
+  align-items: center; /* Alinhando os itens do catálogo */
   background-color: white;
   padding: 15px;
   border-radius: 10px;
