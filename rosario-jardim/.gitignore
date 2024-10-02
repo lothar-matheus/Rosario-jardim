@@ -29,5 +29,5 @@ yarn-error.log*
 /.env
 
 #database
-database
+dataBase.js
 
