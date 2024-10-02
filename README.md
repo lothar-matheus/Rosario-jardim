@@ -5,9 +5,8 @@
 
 Rosário Jardim é uma aplicação web focada em dispositivos móveis que serve como um mediador entre clientes e vendedores de plantas. A plataforma permite que os clientes escolham produtos e enviem seus pedidos diretamente para o WhatsApp do vendedor.
 
-## Tecnologias Utilizadas
+## Tecnologias UtilizadasJavaScript
 
-- JavaScript
 - CSS
 - HTML
 - Node.js (v20.15.0)
@@ -79,16 +78,6 @@ Para criar um usuário administrador:
 
 ## Funcionamento da Aplicação
 
-[O resto do conteúdo permanece o mesmo...]
-
-## Contribuição
-
-Para contribuir com o projeto, por favor, crie um fork do repositório, faça suas alterações e envie um pull request para revisão.
-
-## Suporte
-
-Em caso de dúvidas ou problemas, abra uma issue no repositório do GitHub ou entre em contato com a equipe de desenvolvimento.
-
----
+A aplicação consiste em uma interface onde os usuários podem visualizar o catálogo de plantas disponíveis e realizar compras. O cliente pode selecionar os produtos e, ao clicar no botão de compra, a aplicação gera uma mensagem automática para o WhatsApp do vendedor contendo os detalhes do pedido. Há também a funcionalidade de adicionar itens ao carrinho e enviar um pedido completo.
 
 Desenvolvido por Matheus Lemos
