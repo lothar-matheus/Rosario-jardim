@@ -2,7 +2,7 @@
 .env
 
 # Ignorar o arquivo de configuração do Firebase
-firebaseConfig.js
+dataBase.js
 
 # Ignorar a pasta node_modules
 /node_modules
