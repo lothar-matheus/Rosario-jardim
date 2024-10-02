@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Rosário Jardim
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introdução
 
-## Available Scripts
+Rosário Jardim é uma aplicação web focada em dispositivos móveis que serve como um mediador entre clientes e vendedores de plantas. A plataforma permite que os clientes escolham produtos e enviem seus pedidos diretamente para o WhatsApp do vendedor.
 
-In the project directory, you can run:
+## Tecnologias UtilizadasJavaScript
 
-### `npm start`
+- CSS
+- HTML
+- Node.js (v20.15.0)
+- npm (v10.7.0)
+- React
+- Firebase (Banco de Dados e Autenticação)
+- Vercel (Hospedagem)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Pré-requisitos
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Antes de começar, certifique-se de ter instalado em sua máquina:
 
-### `npm test`
+- Git
+- Node.js (v20.15.0 ou superior)
+- npm (v10.7.0 ou superior)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Configuração do Firebase
 
-### `npm run build`
+Antes de executar o projeto, você precisa configurar seu próprio Firebase. Siga estas etapas:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Acesse o [Console do Firebase](https://console.firebase.google.com/) e crie um novo projeto.
+2. No painel do projeto, clique em "Adicionar app" e siga as instruções para adicionar um app da web.
+3. Após criar o app, você receberá um objeto de configuração. Copie essas informações.
+4. No diretório do projeto, crie um arquivo `.env` na raiz e adicione suas configurações do Firebase:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```
+   REACT_APP_FIREBASE_API_KEY=sua_api_key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=seu_auth_domain
+   REACT_APP_FIREBASE_PROJECT_ID=seu_project_id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=seu_storage_bucket
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=seu_messaging_sender_id
+   REACT_APP_FIREBASE_APP_ID=seu_app_id
+   ```
+5. No Console do Firebase, vá para "Authentication" e habilite o método de autenticação por e-mail/senha.
+6. Vá para "Realtime Database" e crie um banco de dados. Inicie no modo de teste para simplicidade.
+7. Vá para "Storage" e configure o armazenamento para o seu projeto.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Criando um Usuário Administrador
 
-### `npm run eject`
+Para criar um usuário administrador:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. No Console do Firebase, vá para "Authentication" > "Users".
+2. Clique em "Add User" e crie um usuário com e-mail e senha.
+3. Anote as credenciais, pois você as usará para fazer login na aplicação.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Como Executar o Projeto
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone o repositório:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```
+   git clone https://github.com/seu-usuario/rosario-jardim.git
+   ```
+2. Navegue até o diretório do projeto:
 
-## Learn More
+   ```
+   cd rosario-jardim
+   ```
+3. Instale as dependências:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```
+   npm install
+   ```
+4. Inicie o servidor de desenvolvimento:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```
+   npm start
+   ```
+5. Abra o navegador e acesse `http://localhost:3000`
 
-### Code Splitting
+## Funcionamento da Aplicação
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A aplicação consiste em uma interface onde os usuários podem visualizar o catálogo de plantas disponíveis e realizar compras. O cliente pode selecionar os produtos e, ao clicar no botão de compra, a aplicação gera uma mensagem automática para o WhatsApp do vendedor contendo os detalhes do pedido. Há também a funcionalidade de adicionar itens ao carrinho e enviar um pedido completo.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Desenvolvido por Matheus Lemos
