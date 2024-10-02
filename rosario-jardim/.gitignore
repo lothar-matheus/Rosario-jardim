@@ -1,33 +1,14 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.node_modules
-
-# testing
-/coverage
-
-# production
-//build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-
-# env
+# Ignorar o arquivo .env que contém as credenciais
 .env
-/.env
 
-#database
-dataBase.js
+# Ignorar o arquivo de configuração do Firebase
+firebaseConfig.js
 
+# Ignorar a pasta node_modules
+/node_modules
+
+# Ignorar a pasta de build (se houver)
+/build
+
+# Ignorar pastas de banco de dados local (caso use algum)
+/local-database
